@@ -1,4 +1,4 @@
-const BASE_URL = 'http://25.6.215.63:8000/api';
+const BASE_URL = 'http://localhost:8000/api';
 
 function getToken() {
   return localStorage.getItem('ft_token');
