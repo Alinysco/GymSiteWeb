@@ -19,7 +19,7 @@ export default function RegisterPage() {
     if (!form.email.trim()) errs.email = 'Email is required.';
     else if (!/\S+@\S+\.\S+/.test(form.email)) errs.email = 'Enter a valid email address.';
     if (!form.password) errs.password = 'Password is required.';
-    else if (form.password.length < 6) errs.password = 'Password must be at least 6 characters.';
+    else if (form.password.length < 8) errs.password = 'Password must be at least 8 characters.';
     if (!form.confirmPassword) errs.confirmPassword = 'Please confirm your password.';
     else if (form.password !== form.confirmPassword) errs.confirmPassword = 'Passwords do not match.';
     return errs;
@@ -33,38 +33,57 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const errs = validate();
-    if (Object.keys(errs).length) { setErrors(errs); return; }
+    if (Object.keys(errs).length) {
+      setErrors(errs);
+      return;
+    }
 
     setLoading(true);
     setServerError('');
+
     try {
-    await new Promise(resolve => setTimeout(resolve, 400));
+      await new Promise(resolve => setTimeout(resolve, 400));
 
-    const result = await register(
-      form.name.trim(), 
-      form.email.trim(), 
-      form.password, 
-      form.confirmPassword
-    );
-    const responseData = result?.data;
+      const result = await register(
+        form.name.trim(),
+        form.email.trim(),
+        form.password,
+        form.confirmPassword
+      );
 
-    setLoading(false);
+      setLoading(false);
 
-    if (result && (result.id || result.email)) {
-      setSuccess(true);
-      setTimeout(() => navigate('/login'), 2000);
-    } else {
-      const errorMessage = result?.data?.message || result?.message || 'Registration failed.';
-      setServerError(errorMessage);
+      if (result && (result.id || result.email)) {
+        setSuccess(true);
+        setTimeout(() => navigate('/login'), 2000);
+      } else {
+        const errorMessage =
+          result?.data?.message ||
+          result?.message ||
+          'Registration failed.';
+
+        setServerError(errorMessage);
+      }
+
+    } catch (error) {
+      setLoading(false);
+
+      // 🔥 FIX: handle Laravel validation properly (422)
+      const data = error.response?.data;
+      const status = error.response?.status;
+
+      if (status === 422 && data?.errors) {
+        setErrors(data.errors);
+      } else {
+        setServerError(
+          data?.message || 'An unexpected server error occurred.'
+        );
+      }
+
+      console.error("Registration endpoint crash:", error);
     }
-
-  } catch (error) {
-    setLoading(false);
-    const LaravelValidationError = error.response?.data?.message;
-    setServerError(LaravelValidationError || 'An unexpected server error occurred.');
-    console.error("Registration endpoint crash:", error);
-  }
   };
 
   if (success) {
@@ -132,7 +151,7 @@ export default function RegisterPage() {
               name="password"
               type="password"
               className={`form-input ${errors.password ? 'error' : ''}`}
-              placeholder="At least 6 characters"
+              placeholder="At least 8 characters"
               value={form.password}
               onChange={handleChange}
               autoComplete="new-password"
@@ -152,7 +171,9 @@ export default function RegisterPage() {
               onChange={handleChange}
               autoComplete="new-password"
             />
-            {errors.confirmPassword && <span className="form-error">{errors.confirmPassword}</span>}
+            {errors.confirmPassword && (
+              <span className="form-error">{errors.confirmPassword}</span>
+            )}
           </div>
 
           <button type="submit" className="btn btn--primary btn--full btn--lg" disabled={loading}>

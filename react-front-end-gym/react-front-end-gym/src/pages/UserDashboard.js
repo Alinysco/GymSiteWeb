@@ -101,7 +101,7 @@ export default function UserDashboard() {
               {s.isStatus ? (
                 <span className="badge badge--active badge--dot">Active</span>
               ) : (
-                <p style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--black)' }}>{s.value}</p>
+                <p style={{ fontSize: '1rem', fontWeight: 700, color: 'white' }}>{s.value}</p>
               )}
               <p className="card__sub">{s.sub}</p>
             </div>

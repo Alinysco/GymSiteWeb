@@ -1032,7 +1032,10 @@ img {
   margin: 20px 0;
 }
 
-.text-sm { font-size: 0.875rem; }
+.text-sm { 
+  font-size: 0.875rem ;
+  color:white;
+}
 .text-muted { color: var(--gray-500); }
 .font-bold { font-weight: 700; }
 .mt-4 { margin-top: 16px; }
@@ -1043,6 +1046,7 @@ img {
 .justify-between { justify-content: space-between; }
 .gap-2 { gap: 8px; }
 .gap-3 { gap: 12px; }
+
 
 /* =============================================
    RESPONSIVE
