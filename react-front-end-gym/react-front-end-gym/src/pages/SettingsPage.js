@@ -140,12 +140,12 @@ export default function SettingsPage() {
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm text-muted">Member since</span>
-              <span className="text-sm font-bold">{currentUser?.joinDate}</span>
+              <span className="text-sm font-bold">{currentUser.created_at ? new Date(currentUser.created_at).toLocaleDateString() : '—'}</span>
             </div>
             {currentUser?.role === 'user' && (
               <div className="flex items-center justify-between">
                 <span className="text-sm text-muted">Membership status</span>
-                {currentUser?.membershipActive
+                {currentUser?.membership_status === 'active'
                   ? <span className="badge badge--active badge--dot">Active</span>
                   : <span className="badge badge--inactive badge--dot">Inactive</span>
                 }

@@ -10,7 +10,6 @@ export default function UserDashboard() {
   const membership = currentUser.membership;
   const isActive = currentUser.membership_status === 'active';
 
-  // Non-member (inactive) view
   if (!isActive) {
     return (
       <AppLayout title="Dashboard">
@@ -46,7 +45,6 @@ export default function UserDashboard() {
     );
   }
 
-  // Active member view
   const stats = [
     {
       label: 'Member Since',
