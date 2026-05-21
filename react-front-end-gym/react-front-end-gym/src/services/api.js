@@ -39,6 +39,10 @@ async function request(method, path, body = null) {
   }
 
   if (!res.ok) {
+    if (res.status === 401 && token) {
+    localStorage.removeItem('ft_token');
+    window.location.href = '/';
+  }
     const err = new Error(data.message || 'Something went wrong.');
     err.status = res.status;
     err.errors = data.errors || {};

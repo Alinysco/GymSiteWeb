@@ -49,12 +49,9 @@ class AuthController extends Controller
             'status' => 'not_active',
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
-
         return response()->json([
             'message' => 'Registration successful',
             'user' => new UserResource($user->load('membership')),
-            'token' => $token,
             'success' => true,
         ], 201);
     }
@@ -87,6 +84,7 @@ class AuthController extends Controller
         }
 
         $user = User::where('email', $request->email)->firstOrFail();
+        $user->tokens()->delete();
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([

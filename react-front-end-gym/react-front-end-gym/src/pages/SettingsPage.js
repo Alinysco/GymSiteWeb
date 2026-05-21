@@ -34,10 +34,15 @@ export default function SettingsPage() {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
+    try{
     if (form.password==''){
-      const result = await updateProfile(form.name.trim(), form.email.trim());
-    } else if (form.password) {
-      const result = await updateProfile(form.name.trim(), form.email.trim(), form.password, form.confirmPassword);
+        const result = await updateProfile(form.name.trim(), form.email.trim());
+      } else if (form.password) {
+        const result = await updateProfile(form.name.trim(), form.email.trim(), form.password, form.confirmPassword);
+      }
+    } catch (err) {
+      setErrors({ general: 'An error occurred while saving your settings.' });
+      return;
     }
     setSuccess('Your settings have been saved successfully.');
     setForm(prev => ({ ...prev, password: '', confirmPassword: '' }));
