@@ -13,7 +13,7 @@ class AdminSeeder extends Seeder
     {
         $admin = User::create([
             'name' => 'Admin User',
-            'email' => 'admin@gym.com',
+            'email' => 'admin@fittrack.com',
             'password' => Hash::make('password'),
             'role' => 'admin',
             'membership_status' => 'active',
