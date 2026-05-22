@@ -52,11 +52,15 @@ export default function SettingsPage() {
     <AppLayout title="Settings">
       <div className="dashboard">
         <div className="dashboard__header">
-          <h1 className="dashboard__title">Account Settings</h1>
-          <p className="dashboard__subtitle">Update your name, email, or password.</p>
+          <div className="dashboard__header" style={{ textAlign: 'center' }}>
+  <h1 className="dashboard__title">Account Settings</h1>
+  <p className="dashboard__subtitle">
+    Update your name, email, or password.
+  </p>
+</div>
         </div>
 
-        <div className="card" style={{ maxWidth: 520 }}>
+        <div className="card" style={{ maxWidth: 700 ,margin: '0 auto' }}>
           {success && (
             <div className="alert alert--success" style={{ marginBottom: 20 }}>
               <span>✅</span> {success}
@@ -136,7 +140,7 @@ export default function SettingsPage() {
           </form>
         </div>
 
-        <div className="card" style={{ maxWidth: 520, marginTop: 20 }}>
+        <div className="card" style={{ maxWidth: 700, margin: '20px auto 0'  }}>
           <div className="section-title" style={{ marginBottom: 12 }}>Account Info</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             <div className="flex items-center justify-between">
