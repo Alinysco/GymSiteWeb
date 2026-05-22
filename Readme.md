@@ -29,7 +29,7 @@ A full-stack web application for managing gym memberships. Members can register,
 | Layer    | Technology                           |
 |----------|--------------------------------------|
 | Frontend | React (SPA), React Router, Fetch API |
-| Backend  | Laravel 11 (REST API)                |
+| Backend  | Laravel 13 (REST API)                |
 | Auth     | Laravel Sanctum (token-based)        |
 | Database | MySQL                                |
 | Sessions | Database-backed sessions             |
@@ -40,7 +40,7 @@ A full-stack web application for managing gym memberships. Members can register,
 
 ```
 fittrack/
-├── backend/                        # Laravel API
+├── gym-api/                        # Laravel API
 │   ├── app/
 │   │   ├── Http/
 │   │   │   ├── Controllers/Api/
@@ -71,7 +71,7 @@ fittrack/
 │   │   └── api.php
 │   └── .env
 │
-└── frontend/                       # React SPA
+└── react-front-end-gym/                       # React SPA
     ├── src/
     │   ├── pages/
     │   │   ├── HomePage.jsx
