@@ -222,7 +222,7 @@ SANCTUM_STATEFUL_DOMAINS=localhost,localhost:3000
 
 1. Ensure **Apache** and **MySQL** are running in the XAMPP Control Panel
 2. In the `gym-api/` directory, run `php artisan serve` — API at `http://localhost:8000`
-3. In the `react-front-end-gym/` directory, run `npm start` — app at `http://localhost:5173`
+3. In the `react-front-end-gym/` directory, run `npm start` — app at `http://localhost:3000`
 4. Open your browser and navigate to `http://localhost:3000
 
 ---
