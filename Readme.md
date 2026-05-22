@@ -12,6 +12,8 @@ A full-stack web application for managing gym memberships. Members can register,
 - View personal dashboard with membership status, start date, and expiry date
 - See a clear notice when membership is inactive (pending in-person activation)
 - Update profile information (name, email, password)
+- Browse available gym courses and classes (active membership required)
+- View course details including instructor, date, time, and description
 
 ### Admin Features
 
@@ -21,6 +23,9 @@ A full-stack web application for managing gym memberships. Members can register,
 - Edit member information (name, email) via an inline modal
 - Delete member accounts
 - Assign and update memberships manually (status, start date, end date)
+- View all courses in a management table
+- Create new courses (name, instructor, description, date, start time)
+- Delete existing courses
 
 ---
 
@@ -47,19 +52,23 @@ fittrack/
 │   │   │   │   ├── AuthController.php        # register, login, logout, me
 │   │   │   │   ├── AdminController.php       # user CRUD, activate/deactivate
 │   │   │   │   ├── MembershipController.php  # assign & update memberships
+│   │   │   │   ├── CourseController.php      # index, store, destroy
 │   │   │   │   └── UserController.php        # profile view & update
 │   │   │   ├── Middleware/
 │   │   │   │   └── RoleMiddleware.php        # role:admin guard
 │   │   │   ├── Requests/
 │   │   │   │   ├── LoginRequest.php
 │   │   │   │   ├── RegisterRequest.php
+│   │   │   │   ├── StoreCourseRequest.php
 │   │   │   │   ├── UpdateProfileRequest.php
 │   │   │   │   └── UpdateUserRequest.php
 │   │   │   └── Resources/
 │   │   │       ├── UserResource.php
+│   │   │       ├── CourseResource.php
 │   │   │       └── MembershipResource.php
 │   │   └── Models/
 │   │       ├── User.php
+│   │       ├── Course.php
 │   │       └── Membership.php
 │   ├── config/
 │   │   ├── app.php
@@ -80,15 +89,19 @@ fittrack/
     │   │   ├── UserDashboard.jsx
     │   │   ├── AdminDashboard.jsx
     │   │   ├── AdminUsers.jsx
-    │   │   └── SettingsPage.jsx
+    │   │   ├── SettingsPage.jsx
+    │   │   ├── Coursespage.jsx       # User-facing courses page (active membership required)
+    │   │   └── Coursesadmin.jsx      # Admin courses management page
     │   ├── components/
     │   │   ├── AppLayout.jsx
-    │   │   ├── Navbar.jsx
+    │   │   ├── Navbar.jsx            # Updated: Courses link for logged-in users
+    │   │   ├── Sidebar.jsx           # Updated: Courses link for admin and user menus
+    │   │   ├── ProtectedRoute.jsx
     │   │   └── Footer.jsx
     │   ├── context/
     │   │   └── AuthContext.jsx
     │   └── services/
-    │       └── api.js              # Centralized API client
+    │       └── api.js                # Updated: getCourses, addCourse, deleteCourse
     └── public/
         └── images/
             └── logop.png
@@ -223,7 +236,7 @@ SANCTUM_STATEFUL_DOMAINS=localhost,localhost:3000
 1. Ensure **Apache** and **MySQL** are running in the XAMPP Control Panel
 2. In the `gym-api/` directory, run `php artisan serve` — API at `http://localhost:8000`
 3. In the `react-front-end-gym/` directory, run `npm start` — app at `http://localhost:3000`
-4. Open your browser and navigate to `http://localhost:3000
+4. Open your browser and navigate to `http://localhost:3000`
 
 ---
 
@@ -268,6 +281,7 @@ All routes are prefixed with `/api`. Authentication uses **Bearer tokens** via L
 | POST   | `/api/logout`  | Logout and revoke token      |
 | GET    | `/api/profile` | Get current user profile     |
 | PUT    | `/api/profile` | Update name, email, password |
+| GET    | `/api/cours`   | Get all courses              |
 
 ### Protected Routes — Admin Only (`auth:sanctum` + `role:admin`)
 
@@ -287,6 +301,13 @@ All routes are prefixed with `/api`. Authentication uses **Bearer tokens** via L
 |--------|------------------------------------|------------------------------|
 | POST   | `/api/admin/memberships/{userId}`  | Assign membership to a user  |
 | PUT    | `/api/admin/memberships/{userId}`  | Update an existing membership|
+
+#### Course Management
+
+| Method | Endpoint                | Description         |
+|--------|-------------------------|---------------------|
+| POST   | `/api/admin/cours`      | Create a new course |
+| DELETE | `/api/admin/cours/{id}` | Delete a course     |
 
 ### Example: Login Response
 
@@ -310,6 +331,19 @@ All routes are prefixed with `/api`. Authentication uses **Bearer tokens** via L
 }
 ```
 
+### Example: Course Object
+
+```json
+{
+  "id": 1,
+  "name": "Morning Yoga",
+  "instructor": "Jane Smith",
+  "description": "A relaxing morning yoga session.",
+  "date": "2025-06-10",
+  "start_time": "08:00:00"
+}
+```
+
 ---
 
 ## Future Improvements
@@ -319,6 +353,8 @@ All routes are prefixed with `/api`. Authentication uses **Bearer tokens** via L
 - **Online payment integration** — Stripe or PayPal for self-service membership purchase
 - **Member check-in tracking** — log gym visits and display attendance history on the dashboard
 - **Membership renewal reminders** — automatic alerts before expiry
+- **Course editing** — allow admins to edit existing course details
+- **Course enrollment** — allow members to enroll in courses and track attendance
 - **Export reports** — admin ability to export member data as CSV/PDF
 - **Dark/light theme toggle** — user preference stored in profile settings
 - **Refresh token support** — automatic silent token renewal for longer sessions
