@@ -73,4 +73,8 @@ export const api = {
   // Admin - Memberships
   assignMembership: (userId, data) => request('POST', `/admin/memberships/${userId}`, data),
   updateMembership: (userId, data) => request('PUT', `/admin/memberships/${userId}`, data),
+  // Admin - Courses
+  getCourses: () => request('GET', '/cours'),
+  addCourse: (data) => request('POST', '/admin/cours', data),
+  deleteCourse: (id) => request('DELETE', `/admin/cours/${id}`)
 };

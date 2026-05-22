@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\MembershipController;
+use App\Http\Controllers\Api\CourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +62,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/profile', [
         UserController::class,
         'updateProfile'
+    ]);
+    /*
+    |--------------------------------------------------------------------------
+    | Course Management
+    |--------------------------------------------------------------------------
+    */
+    // Courses (Users + Admins)
+    Route::get('/cours', [
+    CourseController::class,
+    'index'
     ]);
 
     /*
@@ -124,6 +135,16 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/memberships/{userId}', [
             MembershipController::class,
             'updateMembership'
+        ]);
+        // Admin - Courses
+        Route::post('/cours', [
+            CourseController::class,
+            'store'
+        ]);
+
+        Route::delete('/cours/{id}', [
+            CourseController::class,
+            'destroy'
         ]);
     });
 });
