@@ -177,7 +177,7 @@ The frontend will be available at `http://localhost:3000` (or as shown in your t
 
 ## Environment Variables
 
-Copy `.env.example` to `.env` in the `backend/` directory and fill in your values:
+Copy `.env.example` to `.env` in the `gym-api/` directory and fill in your values:
 
 ```dotenv
 APP_NAME=FitTrack
