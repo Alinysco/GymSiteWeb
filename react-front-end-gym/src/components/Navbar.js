@@ -47,6 +47,14 @@ export default function Navbar() {
                   Dashboard
                 </Link>
               </li>
+              <li>
+                <Link
+                  to={currentUser.role === 'admin' ? '/admin/courses' : '/courses'}
+                  className={isActive(currentUser.role === 'admin' ? '/admin/courses' : '/courses')}
+                >
+                  Courses
+                </Link>
+              </li>
               <div className="navbar__user">
                 <span className="navbar__username">{currentUser.name}</span>
                 <button className="btn btn--secondary btn--sm" onClick={handleLogout}>

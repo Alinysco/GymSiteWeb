@@ -10,6 +10,8 @@ import UserDashboard from './pages/UserDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminUsers from './pages/AdminUsers';
 import SettingsPage from './pages/SettingsPage';
+import CoursesPage from './pages/Coursespage';
+import CoursesAdmin from './pages/Coursesadmin';
 
 import './styles/global.css';
 
@@ -40,6 +42,14 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/courses"
+            element={
+              <ProtectedRoute>
+                <CoursesPage />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Admin-only routes */}
           <Route
@@ -55,6 +65,14 @@ export default function App() {
             element={
               <ProtectedRoute adminOnly>
                 <AdminUsers />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/courses"
+            element={
+              <ProtectedRoute adminOnly>
+                <CoursesAdmin />
               </ProtectedRoute>
             }
           />

@@ -4,12 +4,14 @@ import { useAuth } from '../context/AuthContext';
 
 const USER_LINKS = [
   { to: '/dashboard', icon: '⊞', label: 'Dashboard' },
+  { to: '/courses', icon: '⌘', label: 'Courses' },
   { to: '/settings', icon: '⚙', label: 'Settings' },
 ];
 
 const ADMIN_LINKS = [
   { to: '/admin', icon: '⊞', label: 'Overview' },
   { to: '/admin/users', icon: '👥', label: 'Manage Users' },
+  { to: '/admin/courses', icon: '⌘', label: 'Courses' },
   { to: '/settings', icon: '⚙', label: 'Settings' },
 ];
 

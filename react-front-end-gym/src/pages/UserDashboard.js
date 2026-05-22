@@ -70,7 +70,7 @@ export default function UserDashboard() {
     {
       label: 'Status',
       value: 'Active',
-      icon: '🏋️',
+      icon: '📊',
       sub: 'Membership status',
       isStatus: true,
     },
