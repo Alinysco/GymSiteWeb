@@ -161,7 +161,7 @@ cp .env.example .env
 php artisan key:generate
 
 # Run database migrations
-php artisan migrate
+php artisan migrate --seed
 
 # Start the development server
 php artisan serve
@@ -230,6 +230,16 @@ SANCTUM_STATEFUL_DOMAINS=localhost,localhost:3000
 > **Note:** Never commit your real `.env` file to version control. Add it to `.gitignore`.
 
 ---
+
+## Default Login Credentials
+
+###  Admin Account
+- Email: Admin@fittrack.com  
+- Password: password
+
+###  User Account
+- Email: Test@example.com  
+- Password: password
 
 ## Running the Project
 
