@@ -1,3 +1,7 @@
+# Project Group :
+Kayouty Omar
+EL AMRI DOUNIA
+
 # FitTrack — Gym Membership Management System
 
 A full-stack web application for managing gym memberships. Members can register, track their membership status, and manage their accounts. Admins have full control over users and membership assignments — all through a clean, role-based interface.
